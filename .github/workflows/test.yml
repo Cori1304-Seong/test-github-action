@@ -20,11 +20,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: cd project
-        run: cd ./test1
+     
             
       - name: Npm install
-        run: npm install
+        run: cd ./test1 && npm install
     
       - name: Build
         run: DISABLE_ESLINT_PLUGIN=true npm run build
