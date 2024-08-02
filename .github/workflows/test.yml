@@ -23,26 +23,29 @@ jobs:
      
             
       - name: Npm install
-        run: cd ./test1 && npm install
+        run:  npm install
+        working-directory: ./test1/
     
       - name: Build
         run: DISABLE_ESLINT_PLUGIN=true npm run build
+        working-directory: ./test1/
+
       
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: ./test1/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
             
-      - name: Docker Hub Login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+     # - name: Docker Hub Login
+     #   uses: docker/login-action@v1
+     #   with:
+     #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+     #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Publish on Docker Hub
-        run: docker build -t testGithubAction:nest --push .
+      # - name: Publish on Docker Hub
+      #   run: docker build -t testGithubAction:nest --push .
         # arm64 라면
         # run: docker buildx build --platform linux/arm64 -t {Registery 명}:{태그명} --push .
