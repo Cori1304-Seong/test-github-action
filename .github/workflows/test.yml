@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: cd project
-        run: cd test1
+        run: cd ./test1
             
       - name: Npm install
         run: npm install
